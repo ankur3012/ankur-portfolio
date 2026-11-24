@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   XCircle,
   Mail,
-  Phone,
   MapPin,
   Terminal,
   Sparkles,
@@ -13,6 +12,7 @@ import {
   Briefcase,
   Code2,
   GraduationCap,
+  Globe,
 } from "lucide-react";
 
 export default function StageVisuals({ stage }) {
@@ -20,10 +20,10 @@ export default function StageVisuals({ stage }) {
     <AnimatePresence mode="wait">
       <motion.div
         key={stage.id}
-        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        initial={{ opacity: 0, y: 14, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -16, scale: 0.98 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        exit={{ opacity: 0, y: -14, scale: 0.98 }}
+        transition={{ duration: 0.15 }}
         className="w-full bg-zinc-900/70 backdrop-blur-xl border border-zinc-800/90 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.4)] p-6 min-h-[380px] flex flex-col justify-between"
       >
         {stage.id === 0 && <ProfileCard />}
@@ -37,14 +37,13 @@ export default function StageVisuals({ stage }) {
   );
 }
 
-/* 1. PROFILE BENTO CARD (Clean Visual — No JSON) */
+/* 1. PROFILE CARD */
 function ProfileCard() {
   return (
     <div className="space-y-5">
-      {/* Header with Avatar & Status */}
       <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
         <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-lg shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-bold text-white text-lg">
             AK
           </div>
           <div>
@@ -58,7 +57,6 @@ function ProfileCard() {
         </span>
       </div>
 
-      {/* MCA GPA Highlight */}
       <div className="flex items-center justify-between p-4 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
         <div>
           <div className="flex items-center gap-1.5 text-xs font-mono text-indigo-400">
@@ -89,7 +87,6 @@ function ProfileCard() {
         </div>
       </div>
 
-      {/* Quick Bento Stats */}
       <div className="grid grid-cols-2 gap-3">
         <div className="p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
           <Briefcase className="w-4 h-4 text-teal-400 mb-2" />
@@ -106,7 +103,7 @@ function ProfileCard() {
   );
 }
 
-/* 2. EXPERIENCE TIMELINE CARD */
+/* 2. EXPERIENCE CARD */
 function ExperienceCard() {
   const roles = [
     {
@@ -123,10 +120,7 @@ function ExperienceCard() {
       company: "Briztech Infosystems",
       role: "Developer Intern",
       period: "02/2022 – 04/2022",
-      points: [
-        "Hands-on development in Advanced Java.",
-        "Built an Online ATM System project.",
-      ],
+      points: ["Hands-on development in Advanced Java.", "Built an Online ATM System project."],
     },
     {
       company: "RSG Software Services",
@@ -138,7 +132,6 @@ function ExperienceCard() {
       ],
     },
   ];
-
   const [selected, setSelected] = useState(0);
 
   return (
@@ -149,10 +142,10 @@ function ExperienceCard() {
           <button
             key={r.company}
             onClick={() => setSelected(i)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition ${
               selected === i
-                ? "bg-teal-500 text-zinc-950 font-semibold shadow-[0_0_12px_rgba(20,184,166,0.4)]"
-                : "bg-zinc-800/80 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                ? "bg-teal-500 text-zinc-950 font-semibold"
+                : "bg-zinc-800/80 text-zinc-400 hover:text-zinc-200"
             }`}
           >
             {r.company}
@@ -167,7 +160,7 @@ function ExperienceCard() {
             {roles[selected].period}
           </span>
         </div>
-        <ul className="space-y-2.5 pt-2">
+        <ul className="space-y-2 pt-2">
           {roles[selected].points.map((pt, idx) => (
             <li key={idx} className="text-xs text-zinc-300 flex gap-2">
               <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
@@ -180,20 +173,18 @@ function ExperienceCard() {
   );
 }
 
-/* 3. PROJECTS + LIVE EMAIL VALIDATOR CARD */
-/* 3. PROJECTS INTERACTIVE TABS CARD */
+/* 3. PROJECTS INTERACTIVE CARD */
 function ProjectsCard() {
   const [selected, setSelected] = useState(0);
   const [email, setEmail] = useState("ankur.dev@gmail.com");
   const [city, setCity] = useState("Ranchi");
 
-  const isValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const isDisposable = /(tempmail|10minutemail|mailinator)/i.test(email);
-
-  const weatherSamples = {
-    Ranchi: { temp: "26°C", condition: "Clear Sky", humidity: "48%" },
-    Bengaluru: { temp: "24°C", condition: "Partly Cloudy", humidity: "62%" },
-    Delhi: { temp: "29°C", condition: "Haze", humidity: "40%" },
+  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isTemp = /(tempmail|10minutemail|mailinator)/i.test(email);
+  const weather = {
+    Ranchi: { temp: "26°C", cond: "Clear Sky" },
+    Bengaluru: { temp: "24°C", cond: "Partly Cloudy" },
+    Delhi: { temp: "29°C", cond: "Haze" },
   };
 
   const projects = [
@@ -203,10 +194,10 @@ function ProjectsCard() {
       period: "09/2026",
       stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
       points: [
-        "Built web-based employee & department management modules.",
-        "Implemented REST backend APIs with MongoDB integration.",
-        "Added user authentication and frontend-backend integration.",
+        "Built employee & department management modules.",
+        "Implemented REST backend APIs with MongoDB & user authentication.",
       ],
+      repoUrl: "https://github.com/ankur3012",
     },
     {
       tab: "Email Validator",
@@ -214,9 +205,10 @@ function ProjectsCard() {
       period: "10/2023",
       stack: ["HTML", "CSS", "JavaScript", "MX / SMTP"],
       points: [
-        "Implemented format, domain, and disposable email checks.",
+        "Format, domain, and disposable email checks.",
         "Added MX and SMTP-based email verification features.",
       ],
+      repoUrl: "https://github.com/ankur3012",
     },
     {
       tab: "Weather App",
@@ -227,25 +219,24 @@ function ProjectsCard() {
         "Integrated live Weather API to fetch and display weather data.",
         "Designed a clean, responsive user interface.",
       ],
+      repoUrl: "https://github.com/ankur3012",
     },
   ];
 
   const current = projects[selected];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3.5">
       <p className="text-xs font-mono text-zinc-500">FEATURED BUILDS · CLICK TO INSPECT</p>
-
-      {/* Clickable Project Tabs */}
       <div className="flex gap-2 flex-wrap">
         {projects.map((p, i) => (
           <button
             key={p.tab}
             onClick={() => setSelected(i)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition ${
               selected === i
-                ? "bg-violet-500 text-zinc-950 font-semibold shadow-[0_0_12px_rgba(139,92,246,0.45)]"
-                : "bg-zinc-800/80 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                ? "bg-violet-500 text-zinc-950 font-semibold"
+                : "bg-zinc-800/80 text-zinc-400 hover:text-zinc-200"
             }`}
           >
             {p.tab}
@@ -253,28 +244,22 @@ function ProjectsCard() {
         ))}
       </div>
 
-      {/* Selected Project Details */}
       <div className="border border-zinc-800 rounded-xl p-4 bg-zinc-950/60 space-y-3">
-        <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center justify-between gap-2">
           <h4 className="font-bold text-white text-sm">{current.title}</h4>
-          <span className="text-[11px] font-mono text-violet-400 bg-violet-500/10 border border-violet-500/20 px-2 py-0.5 rounded">
+          <span className="text-[11px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded">
             {current.period}
           </span>
         </div>
 
-        {/* Tech Stack Pills */}
         <div className="flex flex-wrap gap-1.5">
-          {current.stack.map((tech) => (
-            <span
-              key={tech}
-              className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300"
-            >
-              {tech}
+          {current.stack.map((t) => (
+            <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
+              {t}
             </span>
           ))}
         </div>
 
-        {/* Resume Bullet Points */}
         <ul className="space-y-1.5">
           {current.points.map((pt, idx) => (
             <li key={idx} className="text-xs text-zinc-300 flex gap-2">
@@ -284,21 +269,11 @@ function ProjectsCard() {
           ))}
         </ul>
 
-        {/* Mini Interactive Preview per Project */}
         {selected === 0 && (
           <div className="pt-2 border-t border-zinc-800/80 grid grid-cols-3 gap-2 text-center font-mono text-[11px]">
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800">
-              <p className="text-violet-400 font-bold">JWT</p>
-              <p className="text-zinc-500 text-[10px]">Auth Active</p>
-            </div>
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800">
-              <p className="text-emerald-400 font-bold">REST</p>
-              <p className="text-zinc-500 text-[10px]">CRUD APIs</p>
-            </div>
-            <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800">
-              <p className="text-sky-400 font-bold">Atlas</p>
-              <p className="text-zinc-500 text-[10px]">MongoDB</p>
-            </div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-violet-400 font-bold">JWT Auth</div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">REST APIs</div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-sky-400 font-bold">MongoDB</div>
           </div>
         )}
 
@@ -308,25 +283,16 @@ function ProjectsCard() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Test an email..."
-              className="w-full px-2.5 py-1.5 text-xs bg-zinc-900 border border-zinc-800 text-white rounded-lg focus:outline-none focus:border-violet-500 font-mono"
+              className="w-full px-2.5 py-1.5 text-xs bg-zinc-900 border border-zinc-800 text-white rounded-lg font-mono focus:outline-none focus:border-violet-500"
             />
             <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-              <div className="px-2.5 py-1.5 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
-                {isValidFormat ? (
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <XCircle className="w-3.5 h-3.5 text-red-400" />
-                )}
-                <span>Syntax: {isValidFormat ? "PASS" : "FAIL"}</span>
+              <div className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
+                {isValid ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <XCircle className="w-3.5 h-3.5 text-red-400" />}
+                <span>Syntax: {isValid ? "PASS" : "FAIL"}</span>
               </div>
-              <div className="px-2.5 py-1.5 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
-                {!isDisposable && isValidFormat ? (
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <XCircle className="w-3.5 h-3.5 text-red-400" />
-                )}
-                <span>Domain: {isDisposable ? "TEMP" : "CLEAN"}</span>
+              <div className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
+                {!isTemp && isValid ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <XCircle className="w-3.5 h-3.5 text-red-400" />}
+                <span>Domain: {isTemp ? "TEMP" : "CLEAN"}</span>
               </div>
             </div>
           </div>
@@ -335,33 +301,48 @@ function ProjectsCard() {
         {selected === 2 && (
           <div className="pt-2 border-t border-zinc-800/80 space-y-2">
             <div className="flex gap-1.5">
-              {Object.keys(weatherSamples).map((c) => (
+              {Object.keys(weather).map((c) => (
                 <button
                   key={c}
                   onClick={() => setCity(c)}
                   className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
-                    city === c
-                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/40"
-                      : "bg-zinc-900 text-zinc-500"
+                    city === c ? "bg-sky-500/20 text-sky-300 border border-sky-500/40" : "bg-zinc-900 text-zinc-500"
                   }`}
                 >
                   {c}
                 </button>
               ))}
             </div>
-            <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono">
+            <div className="flex justify-between px-3 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono">
               <span className="text-zinc-300">{city}</span>
-              <span className="text-sky-400 font-bold">{weatherSamples[city].temp}</span>
-              <span className="text-zinc-400">{weatherSamples[city].condition}</span>
+              <span className="text-sky-400 font-bold">{weather[city].temp}</span>
+              <span className="text-zinc-400">{weather[city].cond}</span>
             </div>
           </div>
         )}
+
+        <div className="pt-2 border-t border-zinc-800/80 flex items-center gap-2">
+          <a
+            href={current.repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-medium"
+          >
+            <Code2 className="w-3.5 h-3.5 text-violet-400" />
+            <span>Source Code</span>
+            <ExternalLink className="w-3 h-3 text-zinc-500" />
+          </a>
+          <span className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-zinc-900/50 border border-zinc-800 text-zinc-500 text-[11px] font-mono">
+            <Globe className="w-3.5 h-3.5" />
+            <span>Live Demo ↑</span>
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
-/* 4. QA & SELENIUM SIMULATOR CARD */
+/* 4. QA SIMULATOR CARD */
 function TestingCard() {
   const steps = [
     "Init Selenium WebDriver (Chrome)",
@@ -380,7 +361,7 @@ function TestingCard() {
       setTimeout(() => {
         setCompleted(idx + 1);
         if (idx === steps.length - 1) setRunning(false);
-      }, (idx + 1) * 550);
+      }, (idx + 1) * 500);
     });
   };
 
@@ -394,36 +375,32 @@ function TestingCard() {
         <button
           onClick={runSimulation}
           disabled={running}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold text-xs cursor-pointer disabled:opacity-50 transition"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold text-xs cursor-pointer disabled:opacity-50"
         >
           <Play className="w-3.5 h-3.5" />
           {running ? "Running..." : "Run Suite"}
         </button>
       </div>
-
       <div className="space-y-2.5">
-        {steps.map((step, i) => {
-          const done = i < completed;
-          return (
-            <div
-              key={step}
-              className={`p-3 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
-                done
-                  ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
-                  : "bg-zinc-950/60 border-zinc-800 text-zinc-500"
-              }`}
-            >
-              <span>{step}</span>
-              <span className="font-bold">{done ? "PASS" : "..."}</span>
-            </div>
-          );
-        })}
+        {steps.map((step, i) => (
+          <div
+            key={step}
+            className={`p-3 rounded-xl border text-xs font-mono flex justify-between ${
+              i < completed
+                ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                : "bg-zinc-950/60 border-zinc-800 text-zinc-500"
+            }`}
+          >
+            <span>{step}</span>
+            <span className="font-bold">{i < completed ? "PASS" : "..."}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-/* 5. SKILLS MATRIX CARD */
+/* 5. SKILLS CARD */
 function SkillsCard() {
   const categories = {
     All: ["Java", "JavaScript", "Python", "React.js", "Node.js", "HTML/CSS", "SQL", "MongoDB", "Selenium", "Android SDK", "Git"],
@@ -439,29 +416,22 @@ function SkillsCard() {
         <Sparkles className="w-4 h-4 text-amber-400" />
         <span>TECHNICAL STACK MATRIX</span>
       </div>
-
       <div className="flex gap-2 flex-wrap">
         {Object.keys(categories).map((cat) => (
           <button
             key={cat}
             onClick={() => setTab(cat)}
-            className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition ${
-              tab === cat
-                ? "bg-amber-500 text-zinc-950 font-semibold"
-                : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200"
+            className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer ${
+              tab === cat ? "bg-amber-500 text-zinc-950 font-semibold" : "bg-zinc-800 text-zinc-400"
             }`}
           >
             {cat}
           </button>
         ))}
       </div>
-
       <div className="flex flex-wrap gap-2 pt-2">
         {categories[tab].map((skill) => (
-          <span
-            key={skill}
-            className="px-3 py-1.5 rounded-lg bg-zinc-950/70 border border-zinc-800 text-xs font-mono font-medium text-zinc-200 hover:border-amber-500/40 transition"
-          >
+          <span key={skill} className="px-3 py-1.5 rounded-lg bg-zinc-950/70 border border-zinc-800 text-xs font-mono text-zinc-200">
             {skill}
           </span>
         ))}
@@ -470,22 +440,19 @@ function SkillsCard() {
   );
 }
 
-/* 6. CONTACT CARD */
-/* 6. PRIVACY-PROTECTED CONTACT REQUEST CARD */
+/* 6. PRIVACY-PROTECTED CONTACT CARD */
 function ContactCard({ stage }) {
   const [name, setName] = useState("");
-  const [requesterEmail, setRequesterEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | sent
+  const [status, setStatus] = useState("idle");
 
   const handleRequest = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !requesterEmail.trim()) return;
-
+    if (!name.trim() || !email.trim()) return;
     setStatus("sending");
 
-    // Optional: Web3Forms ka free access key daalne par real email aayega
-    // (Key lene ke liye web3forms.com par apna email daalein — aapka email code mein hidden rahega)
+    // 👇 Apni Web3Forms Access Key yahan paste karein
     const ACCESS_KEY = "dd903fa3-ec8e-4c52-826d-88ee5f9f34bd";
 
     if (ACCESS_KEY !== "YOUR_WEB3FORMS_ACCESS_KEY") {
@@ -497,7 +464,7 @@ function ContactCard({ stage }) {
             access_key: ACCESS_KEY,
             subject: `Portfolio Contact Request from ${name}`,
             name,
-            email: requesterEmail,
+            email,
             message: purpose || "Requested direct email & phone number.",
           }),
         });
@@ -505,10 +472,7 @@ function ContactCard({ stage }) {
         console.error(err);
       }
     }
-
-    setTimeout(() => {
-      setStatus("sent");
-    }, 500);
+    setTimeout(() => setStatus("sent"), 400);
   };
 
   return (
@@ -520,54 +484,51 @@ function ContactCard({ stage }) {
         </span>
       </div>
 
-      {/* Hidden Details Notice */}
       <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-zinc-950/70 border border-zinc-800 text-xs">
-        <div className="flex items-center gap-2 text-zinc-300">
-          <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span>Email & Phone Number</span>
-        </div>
+        <span className="flex items-center gap-2 text-zinc-300">
+          <Mail className="w-4 h-4 text-emerald-400" /> Email & Phone Number
+        </span>
         <span className="font-mono text-[11px] text-zinc-500">Hidden · Request below</span>
       </div>
 
-      {/* Request Form OR Success Message */}
       {status === "sent" ? (
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
           <CheckCircle2 className="w-7 h-7 text-emerald-400 mx-auto" />
           <p className="text-sm font-semibold text-white">Request Received!</p>
-          <p className="text-xs text-zinc-300 leading-relaxed">
-            Thanks <span className="text-emerald-400 font-medium">{name}</span>, your request has been noted. I will share my direct email & phone number with you at{" "}
-            <span className="font-mono text-zinc-200">{requesterEmail}</span> shortly.
+          <p className="text-xs text-zinc-300">
+            Thanks <span className="text-emerald-400">{name}</span>, I will share my details at{" "}
+            <span className="font-mono text-zinc-200">{email}</span> shortly.
           </p>
           <button
             onClick={() => {
               setStatus("idle");
               setName("");
-              setRequesterEmail("");
+              setEmail("");
               setPurpose("");
             }}
-            className="text-[11px] font-mono text-emerald-400 hover:underline pt-1 cursor-pointer"
+            className="text-[11px] font-mono text-emerald-400 hover:underline cursor-pointer"
           >
             Send another request
           </button>
         </div>
       ) : (
         <form onSubmit={handleRequest} className="space-y-2.5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your Name *"
-              className="w-full px-3 py-2 text-xs bg-zinc-950 border border-zinc-800 text-white rounded-lg focus:outline-none focus:border-emerald-500"
+              className="px-3 py-2 text-xs bg-zinc-950 border border-zinc-800 text-white rounded-lg focus:outline-none focus:border-emerald-500"
             />
             <input
               type="email"
               required
-              value={requesterEmail}
-              onChange={(e) => setRequesterEmail(e.target.value)}
-              placeholder="Your Work Email *"
-              className="w-full px-3 py-2 text-xs bg-zinc-950 border border-zinc-800 text-white rounded-lg focus:outline-none focus:border-emerald-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Work Email *"
+              className="px-3 py-2 text-xs bg-zinc-950 border border-zinc-800 text-white rounded-lg focus:outline-none focus:border-emerald-500"
             />
           </div>
           <input
@@ -580,33 +541,22 @@ function ContactCard({ stage }) {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs transition cursor-pointer disabled:opacity-50"
+            className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs cursor-pointer"
           >
-            {status === "sending" ? "Sending Request..." : "Request Email & Phone"}
+            {status === "sending" ? "Sending..." : "Request Email & Phone"}
           </button>
         </form>
       )}
 
-      {/* Location + Public Links */}
       <div className="pt-1 flex items-center justify-between text-xs text-zinc-400">
         <span className="flex items-center gap-1.5">
           <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Ranchi, Jharkhand
         </span>
         <div className="flex gap-2">
-          <a
-            href={stage.github}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-[11px] font-medium transition"
-          >
+          <a href={stage.github} target="_blank" rel="noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-[11px]">
             <ExternalLink className="w-3 h-3" /> GitHub
           </a>
-          <a
-            href={stage.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-medium transition"
-          >
+          <a href={stage.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[11px]">
             <ExternalLink className="w-3 h-3" /> LinkedIn
           </a>
         </div>

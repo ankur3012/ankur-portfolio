@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
 body {
-  background-color: #FAFAFA;
-  color: #111827;
-  font-family: 'Inter', system-ui, sans-serif;
-  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-@import "tailwindcss";
-
-body {
   background-color: #09090b;
   color: #f4f4f5;
   font-family: 'Inter', system-ui, sans-serif;
@@ -19,4 +9,26 @@ body {
     radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.07), transparent 40%),
     radial-gradient(#27272a 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 24px 24px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-resume,
+  #printable-resume * {
+    visibility: visible;
+  }
+  #printable-resume {
+    position: fixed;
+    inset: 0;
+    background: #ffffff !important;
+    color: #111827 !important;
+    padding: 24px !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
 }

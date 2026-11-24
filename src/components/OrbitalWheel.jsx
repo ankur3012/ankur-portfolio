@@ -10,9 +10,9 @@ export default function OrbitalWheel({
   onSelectStage,
 }) {
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 24,
-    mass: 0.4,
+    stiffness: 260,
+    damping: 28,
+    mass: 0.2,
   });
 
   const maxRotation = (stages.length - 1) * ANGLE_STEP;
