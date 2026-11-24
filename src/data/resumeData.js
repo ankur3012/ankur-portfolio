@@ -1,0 +1,106 @@
+export const RESUME_STAGES = [
+  {
+    id: 0,
+    step: "01",
+    label: "Profile",
+    badge: "ABOUT & EDUCATION",
+    title: "Ankur Kumar",
+    subtitle: "Software Developer & QA Engineer",
+    description:
+      "MCA graduate with hands-on experience in full-stack web development and software testing. Skilled in Java, JavaScript, React.js, Node.js, and SQL—focused on building practical, reliable software solutions.",
+    bullets: [
+      "MCA at Dr. Shyama Prasad Mukherjee University (2019 – 2022)",
+      "Academic Excellence: 9.28 / 10.00 GPA",
+      "Based in Ranchi, Jharkhand — Open to Software Developer roles",
+    ],
+    tags: ["Java", "JavaScript", "React.js", "Node.js", "SQL"],
+    accent: "#2F3E9E",
+  },
+  {
+    id: 1,
+    step: "02",
+    label: "Experience",
+    badge: "WORK HISTORY",
+    title: "Industry Experience",
+    subtitle: "Infosys · Briztech · RSG Software",
+    description:
+      "Worked across enterprise banking QA automation and full-stack/Android development internships—bridging development with rigorous testing.",
+    bullets: [
+      "Infosys (12/2021 – 06/2022): Operation Executive, Software Testing — Banking web app QA, Java + Selenium WebDriver, JIRA & Jenkins.",
+      "Briztech Infosystems (02/2022 – 04/2022): Developer Intern — Advanced Java & Online ATM System.",
+      "RSG Software Services (12/2018 – 02/2019): Developer Intern — Android Blood Bank App using Java, Android SDK & MySQL.",
+    ],
+    tags: ["Infosys", "Selenium", "Advanced Java", "Android SDK", "MySQL"],
+    accent: "#0D9488",
+  },
+  {
+    id: 2,
+    step: "03",
+    label: "Projects",
+    badge: "FEATURED BUILDS",
+    title: "Full-Stack & Web Projects",
+    subtitle: "MERN Stack & Vanilla JS Applications",
+    description:
+      "Built practical web applications covering REST APIs, database integration, authentication, real-time APIs, and email verification.",
+    bullets: [
+      "Employee Management System (09/2026): React.js, Node.js, Express.js & MongoDB with auth and department APIs.",
+      "Email Validator (10/2023): Format, domain, disposable email, MX & SMTP verification checks.",
+      "Weather App (07/2023 – 08/2023): Real-time weather dashboard using live Weather API.",
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
+    accent: "#6D28D9",
+  },
+  {
+    id: 3,
+    step: "04",
+    label: "Testing",
+    badge: "QA & AUTOMATION",
+    title: "Quality & Test Automation",
+    subtitle: "Selenium WebDriver · Jenkins · JIRA",
+    description:
+      "Hands-on experience ensuring zero-defect releases for banking applications through automated regression suites and CI reporting.",
+    bullets: [
+      "Functional, Regression, Unit, and Integration Testing.",
+      "Automated test scripts written in Java + Selenium WebDriver.",
+      "Defect lifecycle tracking in JIRA and automated test runs via Jenkins.",
+    ],
+    tags: ["Selenium WebDriver", "JIRA", "Jenkins", "Regression Testing"],
+    accent: "#0284C7",
+  },
+  {
+    id: 4,
+    step: "05",
+    label: "Skills",
+    badge: "TECHNICAL MATRIX",
+    title: "Tech Stack & Tools",
+    subtitle: "Languages · Web · Mobile · Databases",
+    description:
+      "A versatile engineering toolkit spanning backend logic, modern frontend interfaces, mobile development, and relational/NoSQL databases.",
+    bullets: [
+      "Languages: Java, JavaScript, Python",
+      "Web & Mobile: React.js, HTML, CSS, Node.js, Android SDK",
+      "Databases & Version Control: SQL, MongoDB, Git",
+    ],
+    tags: ["Java", "Python", "React", "MongoDB", "SQL", "Git"],
+    accent: "#D97706",
+  },
+  {
+    id: 5,
+    step: "06",
+    label: "Contact",
+    badge: "LET'S CONNECT",
+    title: "Get In Touch",
+    subtitle: "Available for Software Developer Roles",
+    description:
+      "For privacy reasons, my direct email and phone number are hidden. Submit a quick request or connect via LinkedIn to receive my contact details.",
+    bullets: [
+      "Location: Ranchi, Jharkhand",
+      "Direct Email & Phone: Available on Request",
+      "Fastest Response: LinkedIn DM or Request Form",
+    ],
+    tags: ["Privacy Protected", "GitHub", "LinkedIn"],
+    accent: "#059669",
+    github: "https://github.com/ankur3012",
+    linkedin: "https://www.linkedin.com/in/ankur-kumar-115886156/",
+  },
+];
