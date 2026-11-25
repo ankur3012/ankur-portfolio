@@ -174,11 +174,11 @@ function ExperienceCard() {
 }
 
 /* 3. PROJECTS INTERACTIVE CARD */
-/* 3. PROJECTS INTERACTIVE CARD */
 function ProjectsCard() {
-const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(0);
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("Ranchi");
+  const [isFahrenheit, setIsFahrenheit] = useState(false);
 
   const trimmedEmail = email.trim();
   const hasInput = trimmedEmail.length > 0;
@@ -195,10 +195,12 @@ const [selected, setSelected] = useState(0);
   const qualityScore = !hasInput ? 0 : !isValid || suggestion ? 20 : isTemp ? 45 : 85;
 
   const weather = {
-    Ranchi: { temp: "26°C", cond: "Clear Sky" },
-    Bengaluru: { temp: "24°C", cond: "Partly Cloudy" },
-    Delhi: { temp: "29°C", cond: "Haze" },
+    Ranchi: { tempC: 26, cond: "Clear Sky", aqi: 68, aqiLabel: "Moderate" },
+    Patna: { tempC: 28, cond: "Partly Cloudy", aqi: 112, aqiLabel: "Sensitive" },
+    Delhi: { tempC: 29, cond: "Haze", aqi: 165, aqiLabel: "Unhealthy" },
   };
+
+  const formatTemp = (c) => (isFahrenheit ? `${Math.round((c * 9) / 5 + 32)}°F` : `${c}°C`);
 
   const projects = [
     {
@@ -225,13 +227,14 @@ const [selected, setSelected] = useState(0);
       repoUrl: "https://github.com/ankur3012",
     },
     {
-      tab: "Weather App",
-      title: "Real-Time Weather App",
+      tab: "Weather & AQI",
+      title: "Weather & AQI Dashboard",
       period: "07/2023 – 08/2023",
-      stack: ["HTML", "CSS", "JavaScript", "Weather API"],
+      stack: ["JavaScript", "HTML5 Canvas", "Open-Meteo API", "Bootstrap 5"],
       points: [
-        "Integrated live Weather API to fetch and display weather data.",
-        "Designed a clean, responsive user interface.",
+        "Built live weather & US AQI (PM2.5/PM10) dashboard with 24-hour & 5-day forecasts via Open-Meteo APIs.",
+        "Integrated GPS geolocation with reverse geocoding and dynamic HTML5 Canvas rain/snow sky animations.",
+        "Added instant °C/°F unit toggling, LocalStorage search history, and a multi-city comparison table.",
       ],
       repoUrl: "https://github.com/ankur3012",
     },
@@ -362,25 +365,36 @@ const [selected, setSelected] = useState(0);
 
         {selected === 2 && (
           <div className="pt-2 border-t border-zinc-800/80 space-y-2">
-            <div className="flex gap-1.5">
-              {Object.keys(weather).map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setCity(c)}
-                  className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
-                    city === c
-                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/40"
-                      : "bg-zinc-900 text-zinc-500"
-                  }`}
-                >
-                  {c}
-                </button>
-              ))}
+            <div className="flex items-center justify-between gap-1.5">
+              <div className="flex gap-1.5">
+                {Object.keys(weather).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setCity(c)}
+                    className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
+                      city === c
+                        ? "bg-sky-500/20 text-sky-300 border border-sky-500/40"
+                        : "bg-zinc-900 text-zinc-500"
+                    }`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => setIsFahrenheit((prev) => !prev)}
+                className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 hover:border-sky-500/50 cursor-pointer"
+              >
+                {isFahrenheit ? "°F → °C" : "°C → °F"}
+              </button>
             </div>
-            <div className="flex justify-between px-3 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono">
+            <div className="flex items-center justify-between px-3 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono">
               <span className="text-zinc-300">{city}</span>
-              <span className="text-sky-400 font-bold">{weather[city].temp}</span>
+              <span className="text-sky-400 font-bold">{formatTemp(weather[city].tempC)}</span>
               <span className="text-zinc-400">{weather[city].cond}</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                AQI {weather[city].aqi}
+              </span>
             </div>
           </div>
         )}

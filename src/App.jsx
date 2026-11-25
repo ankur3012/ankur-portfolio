@@ -285,8 +285,8 @@ export default function App() {
   <strong>iValidate — Email Validator (10/2023):</strong> HTML, CSS, JavaScript, REST API; single & bulk validation, MX/SMTP checks, disposable detection, typo suggestions & CSV export.
 </p>
                   <p>
-                    <strong>Weather App (07/2023 – 08/2023):</strong> HTML, CSS, JS, Weather API.
-                  </p>
+  <strong>Weather & AQI Dashboard (07/2023 – 08/2023):</strong> HTML5 Canvas, CSS3, Bootstrap 5, JavaScript, Open-Meteo APIs; live weather & US AQI (PM2.5/PM10), 24-hour & 5-day forecasts, GPS location detection, dynamic sky animations & °C/°F unit switching.
+</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-1">
                   <div>
