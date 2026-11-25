@@ -282,8 +282,8 @@ export default function App() {
                     <strong>Employee Management System (09/2026):</strong> React.js, Node.js, Express.js, MongoDB.
                   </p>
                   <p>
-                    <strong>Email Validator (10/2023):</strong> HTML, CSS, JS, MX & SMTP verification.
-                  </p>
+  <strong>iValidate — Email Validator (10/2023):</strong> HTML, CSS, JavaScript, REST API; single & bulk validation, MX/SMTP checks, disposable detection, typo suggestions & CSV export.
+</p>
                   <p>
                     <strong>Weather App (07/2023 – 08/2023):</strong> HTML, CSS, JS, Weather API.
                   </p>

@@ -174,13 +174,26 @@ function ExperienceCard() {
 }
 
 /* 3. PROJECTS INTERACTIVE CARD */
+/* 3. PROJECTS INTERACTIVE CARD */
 function ProjectsCard() {
-  const [selected, setSelected] = useState(0);
-  const [email, setEmail] = useState("ankur.dev@gmail.com");
+const [selected, setSelected] = useState(0);
+  const [email, setEmail] = useState("");
   const [city, setCity] = useState("Ranchi");
 
-  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const isTemp = /(tempmail|10minutemail|mailinator)/i.test(email);
+  const trimmedEmail = email.trim();
+  const hasInput = trimmedEmail.length > 0;
+  const isValid = hasInput && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
+  const domain = hasInput ? (trimmedEmail.split("@")[1] || "").toLowerCase() : "";
+  const typos = {
+    "gmial.com": "gmail.com",
+    "gmai.com": "gmail.com",
+    "yaho.com": "yahoo.com",
+    "hotmal.com": "hotmail.com",
+  };
+  const isTemp = hasInput && /(tempmail|10minutemail|mailinator|guerrillamail)/i.test(domain);
+  const suggestion = hasInput && typos[domain] ? `${trimmedEmail.split("@")[0]}@${typos[domain]}` : "";
+  const qualityScore = !hasInput ? 0 : !isValid || suggestion ? 20 : isTemp ? 45 : 85;
+
   const weather = {
     Ranchi: { temp: "26°C", cond: "Clear Sky" },
     Bengaluru: { temp: "24°C", cond: "Partly Cloudy" },
@@ -200,13 +213,14 @@ function ProjectsCard() {
       repoUrl: "https://github.com/ankur3012",
     },
     {
-      tab: "Email Validator",
-      title: "Email Validator Web App",
+      tab: "iValidate (Email)",
+      title: "iValidate — Pro Email Validator",
       period: "10/2023",
-      stack: ["HTML", "CSS", "JavaScript", "MX / SMTP"],
+      stack: ["JavaScript", "REST API", "MX / SMTP", "CSV Export"],
       points: [
-        "Format, domain, and disposable email checks.",
-        "Added MX and SMTP-based email verification features.",
+        "Built single & bulk (up to 10) email verification via REST API with local heuristic fallback.",
+        "Implemented MX/SMTP checks, disposable domain detection, typo suggestions & 0–100% quality scoring.",
+        "Added CSV report export, JSON copy, and LocalStorage history with Dark/Light mode.",
       ],
       repoUrl: "https://github.com/ankur3012",
     },
@@ -254,7 +268,10 @@ function ProjectsCard() {
 
         <div className="flex flex-wrap gap-1.5">
           {current.stack.map((t) => (
-            <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
+            <span
+              key={t}
+              className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300"
+            >
               {t}
             </span>
           ))}
@@ -271,9 +288,15 @@ function ProjectsCard() {
 
         {selected === 0 && (
           <div className="pt-2 border-t border-zinc-800/80 grid grid-cols-3 gap-2 text-center font-mono text-[11px]">
-            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-violet-400 font-bold">JWT Auth</div>
-            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">REST APIs</div>
-            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-sky-400 font-bold">MongoDB</div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-violet-400 font-bold">
+              JWT Auth
+            </div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-bold">
+              REST APIs
+            </div>
+            <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-sky-400 font-bold">
+              MongoDB
+            </div>
           </div>
         )}
 
@@ -283,16 +306,55 @@ function ProjectsCard() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-2.5 py-1.5 text-xs bg-zinc-900 border border-zinc-800 text-white rounded-lg font-mono focus:outline-none focus:border-violet-500"
+              placeholder="test@example.com"
+              className="w-full px-2.5 py-1.5 text-xs bg-zinc-900 border border-zinc-800 text-white placeholder:text-zinc-500 rounded-lg font-mono focus:outline-none focus:border-violet-500"
             />
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-              <div className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
-                {isValid ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <XCircle className="w-3.5 h-3.5 text-red-400" />}
-                <span>Syntax: {isValid ? "PASS" : "FAIL"}</span>
+            {suggestion && (
+              <div className="text-[11px] font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded flex items-center justify-between">
+                <span>Did you mean {suggestion}?</span>
+                <button
+                  onClick={() => setEmail(suggestion)}
+                  className="underline font-bold text-amber-200 cursor-pointer"
+                >
+                  Fix
+                </button>
               </div>
-              <div className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 text-zinc-300">
-                {!isTemp && isValid ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <XCircle className="w-3.5 h-3.5 text-red-400" />}
-                <span>Domain: {isTemp ? "TEMP" : "CLEAN"}</span>
+            )}
+            <div className="grid grid-cols-3 gap-1.5 text-[10px] font-mono">
+              <div
+                className={`px-2 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 ${
+                  hasInput ? "text-zinc-300" : "text-zinc-500"
+                }`}
+              >
+                {!hasInput ? (
+                  <span className="w-2 h-2 rounded-full bg-zinc-600 shrink-0" />
+                ) : isValid && !suggestion ? (
+                  <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
+                ) : (
+                  <XCircle className="w-3 h-3 text-red-400 shrink-0" />
+                )}
+                <span>MX/SMTP</span>
+              </div>
+              <div
+                className={`px-2 py-1 rounded bg-zinc-900 border border-zinc-800 flex items-center gap-1.5 ${
+                  hasInput ? "text-zinc-300" : "text-zinc-500"
+                }`}
+              >
+                {!hasInput ? (
+                  <span className="w-2 h-2 rounded-full bg-zinc-600 shrink-0" />
+                ) : !isTemp && isValid ? (
+                  <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
+                ) : (
+                  <XCircle className="w-3 h-3 text-red-400 shrink-0" />
+                )}
+                <span>{isTemp ? "Temp Mail" : "Clean"}</span>
+              </div>
+              <div
+                className={`px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-center font-bold ${
+                  hasInput ? "text-violet-300" : "text-zinc-500"
+                }`}
+              >
+                Score: {qualityScore}%
               </div>
             </div>
           </div>
@@ -306,7 +368,9 @@ function ProjectsCard() {
                   key={c}
                   onClick={() => setCity(c)}
                   className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
-                    city === c ? "bg-sky-500/20 text-sky-300 border border-sky-500/40" : "bg-zinc-900 text-zinc-500"
+                    city === c
+                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/40"
+                      : "bg-zinc-900 text-zinc-500"
                   }`}
                 >
                   {c}
@@ -321,21 +385,17 @@ function ProjectsCard() {
           </div>
         )}
 
-        <div className="pt-2 border-t border-zinc-800/80 flex items-center gap-2">
+        <div className="pt-2 border-t border-zinc-800/80">
           <a
             href={current.repoUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-medium"
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-medium transition"
           >
             <Code2 className="w-3.5 h-3.5 text-violet-400" />
             <span>Source Code</span>
             <ExternalLink className="w-3 h-3 text-zinc-500" />
           </a>
-          <span className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-zinc-900/50 border border-zinc-800 text-zinc-500 text-[11px] font-mono">
-            <Globe className="w-3.5 h-3.5" />
-            <span>Live Demo ↑</span>
-          </span>
         </div>
       </div>
     </div>

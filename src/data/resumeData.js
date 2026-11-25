@@ -41,7 +41,7 @@ export const RESUME_STAGES = [
     title: "Full-Stack & Web Projects",
     subtitle: "MERN Stack & Vanilla JS Applications",
     description:
-      "Built practical web applications covering REST APIs, database integration, authentication, real-time APIs, and email verification.",
+      "iValidate (Email Validator): Single & bulk email verification using REST API with offline heuristic fallback, MX/SMTP checks, typo suggestions & CSV export.",
     bullets: [
       "Employee Management System (09/2026): React.js, Node.js, Express.js & MongoDB with auth and department APIs.",
       "Email Validator (10/2023): Format, domain, disposable email, MX & SMTP verification checks.",
