@@ -281,9 +281,7 @@ export default function App() {
                   <p>
                     <strong>Employee Management System (09/2026):</strong> React.js, Node.js, Express.js, MongoDB.
                   </p>
-                  <p>
-  <strong>Crime Control & Safety Portal:</strong> PHP, MySQL, Bootstrap, jQuery; dual Citizen & Admin portals, online crime reporting, public alerts, missing person & vehicle tracking with image uploads, and role-based authentication.
-</p>
+                
                   <p>
   <strong>iValidate — Email Validator (10/2023):</strong> HTML, CSS, JavaScript, REST API; single & bulk validation, MX/SMTP checks, disposable detection, typo suggestions & CSV export.
 </p>
