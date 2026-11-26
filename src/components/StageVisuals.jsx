@@ -174,11 +174,13 @@ function ExperienceCard() {
 }
 
 /* 3. PROJECTS INTERACTIVE CARD */
+/* 3. PROJECTS INTERACTIVE CARD */
 function ProjectsCard() {
   const [selected, setSelected] = useState(0);
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("Ranchi");
   const [isFahrenheit, setIsFahrenheit] = useState(false);
+  const [crimeView, setCrimeView] = useState("citizen");
 
   const trimmedEmail = email.trim();
   const hasInput = trimmedEmail.length > 0;
@@ -235,6 +237,18 @@ function ProjectsCard() {
         "Built live weather & US AQI (PM2.5/PM10) dashboard with 24-hour & 5-day forecasts via Open-Meteo APIs.",
         "Integrated GPS geolocation with reverse geocoding and dynamic HTML5 Canvas rain/snow sky animations.",
         "Added instant °C/°F unit toggling, LocalStorage search history, and a multi-city comparison table.",
+      ],
+      repoUrl: "https://github.com/ankur3012",
+    },
+    {
+      tab: "Crime Control",
+      title: "Crime Control & Safety Portal",
+      period: "PHP · MySQL",
+      stack: ["PHP", "MySQL", "Bootstrap", "jQuery"],
+      points: [
+        "Built dual-portal crime management system with separate Citizen and Administrator dashboards backed by MySQL.",
+        "Implemented online crime reporting, public alert feeds, and application submission/review workflows.",
+        "Added missing person & vehicle tracking with photo upload handling and custom auth validation.",
       ],
       repoUrl: "https://github.com/ankur3012",
     },
@@ -396,6 +410,58 @@ function ProjectsCard() {
                 AQI {weather[city].aqi}
               </span>
             </div>
+          </div>
+        )}
+
+        {selected === 3 && (
+          <div className="pt-2 border-t border-zinc-800/80 space-y-2">
+            <div className="flex gap-1.5">
+              <button
+                onClick={() => setCrimeView("citizen")}
+                className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
+                  crimeView === "citizen"
+                    ? "bg-violet-500/20 text-violet-300 border border-violet-500/40"
+                    : "bg-zinc-900 text-zinc-500"
+                }`}
+              >
+                Citizen Portal
+              </button>
+              <button
+                onClick={() => setCrimeView("admin")}
+                className={`px-2 py-0.5 rounded text-[11px] font-mono cursor-pointer ${
+                  crimeView === "admin"
+                    ? "bg-violet-500/20 text-violet-300 border border-violet-500/40"
+                    : "bg-zinc-900 text-zinc-500"
+                }`}
+              >
+                Admin Panel
+              </button>
+            </div>
+            {crimeView === "citizen" ? (
+              <div className="grid grid-cols-3 gap-1.5 text-center font-mono text-[10px]">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-rose-400 font-semibold">
+                  Crime Report
+                </div>
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-amber-300 font-semibold">
+                  Live Alerts
+                </div>
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-sky-400 font-semibold">
+                  Applications
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 gap-1.5 text-center font-mono text-[10px]">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-semibold">
+                  Auth & Roles
+                </div>
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-violet-300 font-semibold">
+                  Missing Persons
+                </div>
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-amber-300 font-semibold">
+                  Vehicle Uploads
+                </div>
+              </div>
+            )}
           </div>
         )}
 

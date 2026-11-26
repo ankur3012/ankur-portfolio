@@ -46,6 +46,7 @@ export const RESUME_STAGES = [
       "Employee Management System (09/2026): React.js, Node.js, Express.js & MongoDB with auth and department APIs.",
       "Email Validator (10/2023): Format, domain, disposable email, MX & SMTP verification checks.",
       "Weather & AQI Dashboard: Real-time weather & US AQI (PM2.5/PM10) tracker with 24-hr/5-day forecasts, GPS reverse geocoding, HTML5 Canvas sky animations & instant °C/°F switching.",
+      "Crime Control & Safety Portal: Dual Citizen & Admin PHP/MySQL system with online crime reporting, public alerts, missing person/vehicle photo uploads & custom auth.",
     ],
     tags: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
     accent: "#6D28D9",
